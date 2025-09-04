@@ -5,10 +5,7 @@ description = "A Python database manager with PostgreSQL support"
 readme = "README.md"
 requires-python = ">=3.13"
 authors = [
-    {
-        name = "Favour Chigoziri Akubuo", 
-        email = "akubuof.work@gmail.com"
-    },
+    {name = "Favour Chigoziri Akubuo", email = "akubuof.work@gmail.com"},
 ]
 license = {file = "LICENSE"}
 keywords = ["database", "postgresql", "sqlalchemy"]
