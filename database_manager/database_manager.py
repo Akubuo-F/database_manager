@@ -1,7 +1,9 @@
 from contextlib import contextmanager
-from typing import Any, Generator, Optional
+from typing import Optional
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session
+
+from database_manager.entities.entity import Entity
 
 
 class DatabaseManager:
@@ -72,6 +74,15 @@ class DatabaseManager:
         if self._engine:
             self._engine.dispose()
             self._engine = None
+
+
+    def init_tables(self) -> None:
+        """
+        Creates all tables. Make sure all database entities are imported first
+        before calling this method.
+        """
+        if self._engine:
+            Entity.metadata.create_all(bind=self._engine)
 
 
 if __name__ == "__main__":
