@@ -36,10 +36,7 @@ class DatabaseManager:
         try:
             self._engine = create_engine(db_conn_url, echo=echo)
         except Exception as e:
-            raise ConnectionError(
-                f"The error '{e}' was raised while trying to open a connection "
-                "to the database."
-                ) from e
+            raise ConnectionError() from e
 
     @contextmanager
     def get_session(self):
@@ -58,10 +55,7 @@ class DatabaseManager:
             yield session
         except Exception as e:
             session.rollback()
-            raise ConnectionError(
-                f"The error '{e}' was raised while trying to get a session "
-                "to the database."
-            ) from e
+            raise ConnectionError() from e
         finally:
             session.commit()
             session.close()
@@ -83,10 +77,3 @@ class DatabaseManager:
         """
         if self._engine:
             Entity.metadata.create_all(bind=self._engine)
-
-
-if __name__ == "__main__":
-    db_manager = DatabaseManager()
-    db_manager.open_connection(db_conn_url="YOUR-DATABASE-CONNECTION-URL", echo=False)
-    with db_manager.get_session() as session:
-        print("Database connection and session implemented correctly.")
